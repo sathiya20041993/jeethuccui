@@ -16,6 +16,10 @@ export const ADMIN_MENU_ITEMS: NbMenuItem[] = [
       , {
         title: 'Add Counselor',
         link: '/pages/counselor/create',
+      },
+      {
+        title: 'Projects',
+        link: '/pages/projects/view',
       }
     ],
   },

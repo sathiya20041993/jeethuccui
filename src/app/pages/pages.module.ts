@@ -1,3 +1,5 @@
+import { AddProjectComponent } from './components/Projects/add-project/add-project.component';
+import { ViewProjectsComponent } from './components/Projects/view-projects/view-projects.component';
 import { CreateCounselorComponent } from './components/admin-pages/create-counselor/create-counselor.component';
 import { StudentReportComponent } from './components/student-report/student-report.component';
 import { PendingCertificateReportComponent } from './components/pending-certificate-report/pending-certificate-report.component';
@@ -53,7 +55,10 @@ const PAGES_COMPONENTS = [
   PendingCertificateReportComponent,
   CollectionReportComponent,
   DueReportComponent,
-  StudentReportComponent
+  StudentReportComponent,
+  ViewProjectsComponent,
+  AddProjectComponent
+
 ];
 
 @NgModule({

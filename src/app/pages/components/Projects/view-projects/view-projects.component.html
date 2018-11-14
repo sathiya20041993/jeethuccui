@@ -1,0 +1,58 @@
+<nb-card _ngcontent-c50="" _nghost-c22="">
+  <nb-card-header _ngcontent-c50="">Projects
+
+     
+          <button routerLink="/pages/project/add"  style = "float:right" class="btn btn-hero-primary btn-demo">Add New</button>
+
+     
+
+  </nb-card-header>
+  <nb-card-body _ngcontent-c50="">
+     
+      <p-table [style]="{'margin-bottom':'150px'}" #tt [responsive]="true" [resizableColumns]="true" [columns]="cols" selectionMode="multiple" [(selection)]="selectedCenters" [paginator]="true" [rows]="10" [pageLinks]="3" [rowsPerPageOptions]="[10,50,100]" [value]="projectList">
+          <ng-template pTemplate="caption">
+
+             
+              <div class="ui-helper-clearfix">
+                  <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                  <input type="text" pInputText size="50" placeholder="Global Filter" (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                  <button type="button" pButton  icon="fa fa-file-o" iconPos="left" label="CSV" (click)="tt.exportCSV()" style="float:right;"></button>
+                  <!-- <button type="button" pButton icon="fa-file" iconPos="left" label="Selection Only" (click)="tt.exportCSV({selectionOnly:true})" style="float:right"></button>  -->
+              </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+              <tr>
+                  <th style="width: 6.25em" class="table-column-align-center">
+                       Id</th>
+                  <th style="width: 18.25em" class="table-column-align-center">Project Name</th>
+                
+                  <th style="width: 24.25em" class="table-column-align-center">Client Information</th>
+                  <th class="table-column-align-center">Total Amount</th>
+                  <th class="table-column-align-center">Paid Amount</th>
+                  <th class="table-column-align-center">Due Amount</th>
+                  <th class="table-column-align-center">Action</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-project>
+              <tr [pSelectableRow]="rowData">
+                  <td class="table-column-align-center">{{project.projectId}}</td>
+                  <td class="table-column-align-center">{{project.projectName}}</td>
+                
+                  <td class="table-column-align-center">{{project.clientInformation}}</td>
+                  <td class="table-column-align-center">{{project.projectAmount | currency:"₹" }}</td>
+                  <td class="table-column-align-center">{{project.projectPaidAmount | currency:"₹"}}</td>
+                  <td class="table-column-align-center">{{project.projectPendingAmount | currency:"₹"}}</td>
+                
+                
+                  <td class="table-column-align-center">
+
+                      <i class="fa fa-pencil-square-o" aria-hidden="true" style="padding-right:10px;" (click)="update(center)"></i>
+                      <i class="fa fa-money" aria-hidden="true" style="padding-right:10px;" (click)="update(center)"></i></td>
+
+              </tr>
+          </ng-template>
+      </p-table>
+
+
+  </nb-card-body>
+</nb-card>

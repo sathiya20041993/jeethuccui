@@ -1,3 +1,5 @@
+import { AddProjectComponent } from './components/Projects/add-project/add-project.component';
+import { ViewProjectsComponent } from './components/Projects/view-projects/view-projects.component';
 import { CreateCounselorComponent } from './components/admin-pages/create-counselor/create-counselor.component';
 import { StudentReportComponent } from './components/student-report/student-report.component';
 import { PendingCertificateReportComponent } from './components/pending-certificate-report/pending-certificate-report.component';
@@ -47,7 +49,10 @@ const routes: Routes = [{
     },
    
     { path: 'center/view', component: ViewCouchingCenterComponent },
+    { path: 'projects/view', component: ViewProjectsComponent },
     { path: 'center/add', component: CreateCenterComponent},
+    
+    { path: 'project/add', component: AddProjectComponent},
     { path: 'center/edit/:centerId', component: CreateCenterComponent},
     { path: 'courses/create', component: CourseCreationComponent },
     { path: 'counselor/create', component: CreateCounselorComponent},

@@ -10,6 +10,6 @@
 
 export const environment = {
   production: false,
-  //url: 'http://localhost:8080/'
-  url: 'http://localhost:8080/coaching-centre-app/'
+  url: 'http://localhost:8080/'
+  //url: 'http://localhost:8080/coaching-centre-app/'
 };
