@@ -1,0 +1,82 @@
+<!-- <button style="float:right" (click)="printDiv(printableArea)"> 
+  Print </button> -->
+<div id="printableArea" style="font-family: 'Times New Roman', Times, serif" class="a4">
+  <div style="margin:auto; width:80%">
+    <div class="Row">
+      <div class="Column" style="width:45%;font-family: 'Times New Roman', Times, serif">{{postalAddress}}</div>
+      <div class="Column" style="width:25%"> </div>
+
+      <div class="Column" style="width:30%">
+        <div class="Row">
+          <div class="Column"> Date </div>
+
+          <div class="Column">{{date}}</div>
+        </div>
+        <div class="Row">
+            <div class="Column"> Receipt No: </div>
+  
+            <div class="Column">{{receiptNo}}</div>
+          </div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+  <div style="margin:auto; width:60%;margin-top: 60px;">
+    <div><span style="font-size: 25px;font-family: 'Times New Roman', Times, serif'">Bill to: {{reciptantname}}</span><br>
+      <div style="height:40px"></div>
+
+      <div style="border:1px solid black;font-family: 'Times New Roman', Times, serif">Description</div>
+      <table style="width:100%">
+
+        <tr>
+          <td width="80%" style=";font-family: 'Times New Roman', Times, serif">{{courseName}}</td>
+          <td width="20%" style="text-align: right;font-family: 'Times New Roman', Times, serif">{{paidAmount}}</td>
+        </tr>
+        <tr>
+          <td width="80%" style="text-align: right;font-family: 'Times New Roman', Times, serif"><span style='margin-right: 10px;'>Other
+              charges
+            </span></td>
+          <td width="20%" style="text-align: right;font-family: 'Times New Roman', Times, serif">{{otherCharges}}</td>
+        </tr>
+        <tr>
+          <td width="80%" style="text-align: right;font-family: 'Times New Roman', Times, serif"><span style='font-size: 18px;margin-right: 10px;'><strong>Grand
+                total
+              </strong></span></td>
+          <td width="20%" style="text-align: right;font-family: 'Times New Roman', Times, serif"><span style='font-size: 18px;'><strong>{{grandTotal}}</strong></span></td>
+        </tr>
+      </table>
+
+    </div>
+
+  </div>
+
+  <div style="margin:auto;margin-top: 50px; width:90%">
+    <p><span style=" font-style: italic;font-size: 23px;font-family: 'Times New Roman', Times, serif"><u>Instructions:</u></span></p>
+    <ul style="list-style-type: disc; font-size: 20px ">
+      <li> <span style=" font-size: 20px;margin-left: 25px;font-family: 'Times New Roman', Times, serif">Amount collected
+          is foor course(inclusive of book charges) only.</span></li>
+      <li> <span style=" font-size: 20px;margin-left: 25px;font-family: 'Times New Roman', Times, serif">This receipt is
+          valid till bearer completes the course.</span></li>
+      <li> <span style=" font-size: 20px;margin-left: 25px;font-family: 'Times New Roman', Times, serif">This receipt cannot
+          be transferred to any other person.</span></li>
+      <li> <span style=" font-size: 20px;margin-left: 25px;font-family: 'Times New Roman', Times, serif">Please keep this
+          receipt safe till completion of this course and must be produced when demanded.</span></li>
+      <li> <span style=" font-size: 20px;margin-left: 25px;font-family: 'Times New Roman', Times, serif">In case of cheque
+          bounce, extra bounce charges (as per bank) will be charged.</span></li>
+      <li> <span style=" font-size: 20px;margin-left: 25px;font-family: 'Times New Roman', Times, serif">Fees once paid will
+          not be refunded, even if student quites the course in middle (irrespective of reason).</span></li>
+      <li> <span style=" font-size: 20px;margin-left: 25px;font-family: 'Times New Roman', Times, serif">By accepting this
+          receipt, fees bearer accepts all terms & conditions of the center</span></li>
+    </ul>
+
+    <div style="text-align: right;margin-top: 30px;"><span style=" font-size: 21px;font-family: 'Times New Roman', Times, serif">For
+        Digitech Academy</span></div>
+    <div style="text-align: right;margin-top: 40px;"><span style=" font-size: 21px;font-family: 'Times New Roman', Times, serif">Authorized
+        Signatory
+      </span></div>
+  </div>
+
+</div>

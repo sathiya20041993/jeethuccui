@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-12">
+      <nb-card>
+          <nb-card-header>{{student.studentName}} Payment History
+            <!-- <button class="btn btn-hero-primary btn-demo float-right" (click)="back()">Back</button> -->
+          </nb-card-header>
+          <nb-card-body>
+              <p-table #studentPayHistoryList [responsive]="true" [resizableColumns]="true" [columns]="cols" [value]="studentpayHistorys" [paginator]="true" [rows]="10">
+                  <ng-template pTemplate="caption">
+                      <div class="ui-helper-clearfix">
+                          <button type="button" pButton icon="fa fa-file-o" iconPos="left" label="CSV" (click)="studentPayHistoryList.exportCSV()" style="float:right;"></button>
+                      </div>
+                  </ng-template>
+                  <ng-template pTemplate="header">
+                      <tr>
+                          <th *ngFor="let col of cols" style="text-align: center">
+                              {{col.header}} <ng-container *ngIf="col.header !== 'Payment Date '">(<i  class="fa fa-inr" aria-hidden="true"></i>)</ng-container>
+                          </th>
+                          <th>Receipt</th>
+                      </tr>
+                      <tr>
+                          <th *ngFor="let col of cols">
+                              <input pInputText class="form-control" style="padding-bottom: 5px; padding-top:  5px" type="text" (input)="studentPayHistoryList.filter($event.target.value, col.field, col.filterMatchMode)">
+                          </th>
+                          <th></th>
+                      </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-rowData let-columns="cols">
+                      <tr [pSelectableRow]="rowData">
+                          <td *ngFor="let col of cols" style="text-align: right">
+                            
+                              <ng-container *ngIf="col.field == 'paymentDate'">{{rowData[col.field] | date:'dd/MM/yyyy'}}</ng-container>
+                              <ng-container *ngIf="col.field !== 'paymentDate'">{{rowData[col.field] | currency:"₹"}}</ng-container>
+                          </td>
+                          <td><a href="javascript:;;" (click)="printInvoice(rowData)">Re-Print</a></td>
+                      </tr>
+                    </ng-template>
+                      <ng-template pTemplate="footer">
+                            <tr>
+                                <td colspan="1" style="text-align: right">Totals</td>
+                                <td style="text-align: right">{{totalCourseFee | currency:"₹"}}</td>
+                                <td style="text-align: right">{{totalDiscount | currency:"₹"}}</td>
+                                <td style="text-align: right">{{totalAddOn | currency:"₹"}}</td>
+                                <td style="text-align: right">{{totalFee | currency:"₹"}}</td>
+                                <td style="text-align: right">{{totalDue | currency:"₹"}}</td>
+                                <td style="text-align: right">{{totalPaid | currency:"₹"}}</td>
+                                <td style="text-align: right"></td>
+                            </tr>
+                        </ng-template>
+                      
+                 
+              </p-table>
+          </nb-card-body>
+      </nb-card>
+  </div>
+</div>

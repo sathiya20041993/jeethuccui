@@ -1,0 +1,92 @@
+/* You can add global styles to this file, and also import other style files */
+/* body {
+    display: block;
+    z-index: 0;
+  }
+  
+  body::after {
+    background-image: url(/assets/images/logo.png);
+    background-blend-mode:lighten;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-position-y: center;
+    content: "";
+    opacity: 0.1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: -1;   
+  }
+
+*/
+
+
+.pageHeader{
+  background: #2b62e273;
+  height: 53px;
+  color: white;
+  width:100%;
+ padding: 2px;
+ 
+}
+.page-header-left{
+  font-size: 25px;
+  font-weight: bold;
+margin-left: 10px;
+ 
+ 
+}
+.page-header-right{
+ 
+  text-align: right;
+}
+
+.btn-header{
+margin: 5px;
+}
+
+.page-content{
+  margin:10px auto;
+  width:98%
+}
+
+.table-column-align-center{
+  text-align: center
+}
+
+
+
+.ui-inputtext.ui-widget.ui-state-default.ui-corner-all.ui-autocomplete-input{
+  width: 100% !important;
+  border-radius: 8px !important;
+  line-height: 31px !important;
+}
+
+.ui-button.ui-togglebutton.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left.ui-state-active.ui-state-disabled{
+  opacity: 1;
+}
+
+.ui-dropdown-trigger.ui-state-default.ui-corner-right{
+  width:33px
+}
+
+.requiredSymbol{
+  color:red;
+}
+.ui-dropdown label.ui-dropdown-label{
+  height: 39px !important;
+}
+
+.ui-table-resizable .ui-table-thead>tr>th, .ui-table-resizable .ui-table-tfoot>tr>td, .ui-table-resizable .ui-table-tbody>tr>td {
+  overflow: hidden;
+  line-height: 27px;
+}
+
+
+.ui-paginator .ui-paginator-page, .ui-paginator .ui-paginator-pages, .ui-paginator .ui-paginator-next, .ui-paginator .ui-paginator-last, .ui-paginator .ui-paginator-first, .ui-paginator .ui-paginator-prev, .ui-paginator .ui-paginator-current{
+  width: 2.7em !important;
+    height: 2.7em !important;
+    line-height: 2.7em !important;
+}

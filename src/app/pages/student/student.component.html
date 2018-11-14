@@ -1,0 +1,177 @@
+<div class="row">
+  <div class="col-md-12">
+    <nb-card>
+      <nb-alert *ngIf="showFillMandetoryValidation" status="danger" closable (close)="onHideNotification()">
+        Fill All the required Fields
+      </nb-alert>
+      <nb-alert *ngIf="amountValidation" status="danger" closable (close)="onHideNotification()">
+        {{amountValidationMessage}}
+      </nb-alert>
+      <nb-card-header>Student Admission
+        <button class="btn btn-hero-primary btn-demo float-right" (click)="viewList()">View List</button>
+      </nb-card-header>
+      <nb-card-body>
+        <div class="row">
+          <div class="col-md-8">
+            <form class="form-horizontal" [formGroup]="studentForm">
+              <div class="form-group row">
+                <label for="inputName" class="col-sm-2 col-form-label">Name <span style="color: red;">*</span></label>
+                <div class="col-sm-9">
+                  <!-- <input type="text" formControlName="studentName" class="form-control" id="inputName" placeholder="Name"> -->
+                  <p-autoComplete [style]="{'width':'100%'}" (onSelect)="selectStudent($event)" formControlName="studentNameTmp"
+                    [suggestions]="names" (completeMethod)="filterName($event)" field="studentName" [size]="30"
+                    placeholder="Name" [minLength]="1"></p-autoComplete>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputEmail" class="col-sm-2 col-form-label">Email Address <span style="color: red;">*</span></label>
+                <div class="col-sm-9">
+                  <input type="email" formControlName="email" class="form-control" id="inputEmail" placeholder="Email Address">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputPhone" class="col-sm-2 col-form-label">Phone <span style="color: red;">*</span></label>
+                <div class="col-sm-4">
+                  <input type="text" onlynumber="true" maxlength="10" formControlName="phoneNumber" class="form-control" id="inputPhone" placeholder="Phone">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputCourse" class="col-sm-2 col-form-label">Course <span style="color: red;">*</span></label>
+                <div class="col-sm-5">
+                  <p-multiSelect (onChange)="courseChange($event)" [style]="{'width':'100%'}" [options]="courses"
+                    formControlName="course"></p-multiSelect>
+                </div>
+              </div>
+              <ng-container formGroupName="paymentDetails">
+                <div class="form-group row">
+
+                  <label for="inputFeeAmount" class="col-sm-2 col-form-label">Fee Amount <span style="color: red;">*</span></label>
+                  <div class="col-sm-4">
+                    <div class="ui-inputgroup">
+                      <span class="ui-inputgroup-addon" style="width:40px;"> <i style="margin-top:15px" class="fa fa-inr "
+                          aria-hidden="true"></i></span>
+                      <input style="text-align:right;cursor:not-allowed" onlynumber="true" disabled=true type="text" (change)="calcTotalFee()" formControlName="coursesFee"  class="form-control"
+                        id="inputFeeAmount" placeholder="Fee Amount">
+                    </div>
+                  </div>
+
+                  <label for="inputAddons" class="col-sm-2 col-form-label">Addons (+)</label>
+                  <div class="col-sm-4">
+                    <div class="ui-inputgroup">
+                      <span class="ui-inputgroup-addon" style="width:40px;"> <i style="margin-top:15px" class="fa fa-inr "
+                          aria-hidden="true"></i></span>
+                      <input style="text-align:right" onlynumber="true" (change)="calcTotalFee()" formControlName="addon" class="form-control" id="inputAddons"
+                        placeholder="Addons" type="text" /></div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputDiscount" class="col-sm-2 col-form-label">Discount (-)</label>
+                  <div class="col-sm-4">
+                    <div class="ui-inputgroup">
+                      <span class="ui-inputgroup-addon" style="width:40px;"> <i style="margin-top:15px" class="fa fa-inr "
+                          aria-hidden="true"></i></span>
+                      <input style="text-align:right" onlynumber="true" (change)="calcTotalFee()" formControlName="discount" class="form-control" id="inputDiscount"
+                        placeholder="Discount" type="text" />
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="form-group row">
+                  <label for="inputAddons" class="col-sm-3 col-form-label">Addons (+)</label>
+                  <div class="col-sm-4">
+                    <div class="ui-inputgroup">
+                      <span class="ui-inputgroup-addon" style="width:40px;"> <i style="margin-top:15px" class="fa fa-inr "
+                          aria-hidden="true"></i></span>
+                      <input style="text-align:right" onlynumber="true" (change)="calcTotalFee()" formControlName="addon" class="form-control" id="inputAddons"
+                        placeholder="Addons" type="text" /></div>
+                  </div>
+                </div> -->
+                <div class="form-group row">
+                  <label for="inputTotalFee" class="col-sm-2 col-form-label">Total Fee <span style="color: red;">*</span></label>
+                  <div class="col-sm-4">
+                    <div class="ui-inputgroup">
+                      <span class="ui-inputgroup-addon" style="width:40px;"> <i style="margin-top:15px" class="fa fa-inr "
+                          aria-hidden="true"></i></span>
+                      <input style="text-align:right" onlynumber="true" readonly formControlName="totalFee" type="text" class="form-control" id="inputTotalFee"
+                        placeholder="Total Fee">
+                    </div>
+                  </div>
+                  <label for="inputFeePaid" class="col-sm-2 col-form-label">Fee Paid <span style="color: red;">*</span></label>
+                  <div class="col-sm-4">
+                    <div class="ui-inputgroup">
+                      <span class="ui-inputgroup-addon" style="width:40px;"> <i style="margin-top:15px" class="fa fa-inr "
+                          aria-hidden="true"></i></span>
+                      <input style="text-align:right" onlynumber="true" formControlName="paidAmount" (change)="calcDueFee()" type="text" class="form-control" id="inputFeePaid"
+                        placeholder="Fee Paid">
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="form-group row">
+                  <label for="inputFeePaid" class="col-sm-2 col-form-label">Fee Paid <span style="color: red;">*</span></label>
+                  <div class="col-sm-4">
+                    <div class="ui-inputgroup">
+                      <span class="ui-inputgroup-addon" style="width:40px;"> <i style="margin-top:15px" class="fa fa-inr "
+                          aria-hidden="true"></i></span>
+                      <input style="text-align:right" onlynumber="true" formControlName="paidAmount" (change)="calcDueFee()" type="text" class="form-control" id="inputFeePaid"
+                        placeholder="Fee Paid">
+                    </div>
+                  </div>
+                </div> -->
+              </ng-container>
+              <div class="form-group row" style="text-align:center">
+                <div class="offset-sm-5 col-sm-5">
+                  <button type="submit" (click)="admit();"  class="btn btn-primary">Admit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-4">
+            
+            <ul *ngIf="selectedCourse.length != 0">
+                <p><strong>Selected Courses</strong></p>
+              <li *ngFor="let selected of selectedCourse">{{selected}}</li>
+            </ul>
+          </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+<p-sidebar [(visible)]="showStudentId" position="bottom" [baseZIndex]="10000">
+  <h1 style="font-weight:normal">Student ID is {{studentForm.get('studentCode').value}}.</h1>
+  <button pButton type="button" (click)="showStudentId = false;printInvoice();" label="Okay" class="ui-button-success"></button>
+</p-sidebar>
+
+<p-sidebar [(visible)]="showSaving" position="bottom" [baseZIndex]="10000">
+  <h1 style="font-weight:normal">Saving...</h1>
+</p-sidebar>
+
+<p-dialog header="Fee Receipt" [(visible)]="displayReceipt" [modal]="true" [responsive]="true" [width]="500" [minWidth]="200"
+  [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+  <div class="form-group row">
+    <label class="col-sm-5 col-form-label">Student</label>
+    <div class="col-sm-9">
+      <label class="col-form-label">{{studentForm.get('studentName').value}}</label>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Total Fees</label>
+    <div class="col-sm-9">
+      <label class="col-form-label">Rs. {{studentForm.get('paymentDetails').get('totalFee').value}}</label>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Due</label>
+    <div class="col-sm-9">
+      <label class="col-form-label">Rs. {{studentForm.get('paymentDetails').get('dueAmount').value}}</label>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Fee Paid</label>
+    <div class="col-sm-9">
+      <label class="col-form-label">Rs. {{studentForm.get('paymentDetails').get('paidAmount').value}}</label>
+    </div>
+  </div>
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" (click)="printInvoice()" label="Print"></button>
+  </p-footer>
+</p-dialog>

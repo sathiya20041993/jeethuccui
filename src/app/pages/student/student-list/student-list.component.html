@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-header>Student List
+                <button class="btn btn-hero-primary btn-demo float-right" (click)="admitStudent()">Admit Student</button>
+            </nb-card-header>
+            <nb-card-body>
+                <p-table [style]="{'margin-bottom':'150px'}" #studentList [responsive]="true" [resizableColumns]="true" [columns]="cols" [value]="students" [paginator]="true" [rows]="10" [pageLinks]="3" [rowsPerPageOptions]="[10,50,100]" >
+                    <ng-template pTemplate="caption">
+                        <div class="ui-helper-clearfix">
+                            <button type="button" pButton icon="fa fa-file-o" iconPos="left" label="CSV" (click)="studentList.exportCSV()" style="float:right;"></button>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header" >
+                        <tr>
+                            <th *ngFor="let col of cols" style="text-align: center" [pSortableColumn]="col.field">
+                                {{col.header}}
+                                <ng-container ><p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon></ng-container>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th *ngFor="let col of cols" >
+                                    <ng-container *ngIf="col.field !== 'joinDate'"><input pInputText class="form-control" style="padding-bottom: 5px; padding-top:  5px" type="text" (input)="studentList.filter($event.target.value, col.field, col.filterMatchMode)"></ng-container>
+                                  
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="cols">
+                        <tr [pSelectableRow]="rowData">
+                            <td *ngFor="let col of cols" style="text-align: center">
+                                    <ng-container *ngIf="col.field == 'joinDate'">{{rowData[col.field] | date:'dd/MM/yyyy'}}</ng-container>
+                                    <ng-container *ngIf="col.field != 'joinDate'">{{rowData[col.field]}}</ng-container>
+                              
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+                <div *ngIf="students.length==0">
+                    No values to display here
+                </div>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

@@ -1,0 +1,318 @@
+<nb-card>
+
+    <nb-alert *ngIf="showFailureResponseNotification" status="danger" closable (close)="onHideNotification()">
+        {{responseMessage}}
+    </nb-alert>
+
+    <nb-alert *ngIf="showCenterDuplicateError" status="danger" closable>
+        {{responseMessage}}
+    </nb-alert>
+
+    <nb-alert *ngIf="showSuccessResponseNotification" status="success" closable (close)="onHideNotification()">
+        Saved Successfully
+    </nb-alert>
+
+    <nb-alert *ngIf="showFillMandetoryValidation" status="danger" closable (close)="onHideNotification()">
+        Fill All the required Fields
+    </nb-alert>
+
+
+    <nb-card-header>Create Center
+        <button type="button" style="float:right" class="btn btn-hero-primary btn-demo" (click)="saveCouchingCenter()">Save</button>
+
+    </nb-card-header>
+    <nb-card-body>
+        <form class="form-horizontal ng-untouched ng-pristine ng-valid" [formGroup]="couchingCenterForm">
+
+
+
+
+
+
+            <div class="form-group row">
+                <label class="col-sm-3 form-control-label">Center Id<span class="requiredSymbol">*</span></label>
+                <div class="col-sm-5">
+                    <input (blur)="checkCenterAlreadyExistWhileCreation()" class="form-control" placeholder="Center Id"
+                        required type="text" pInputText formControlName="centerId" name="centerId" />
+
+
+
+                </div>
+            </div>
+
+
+
+
+            <div class="form-group row">
+
+                <label class="col-sm-3 form-control-label">Phone<span class="requiredSymbol">*</span></label>
+                <div class="col-sm-3">
+                    <input maxlength="10" onlynumber="true" required placeholder="Phone" class="form-control" type="text"
+                        formControlName="phone" pInputText name="phone" />
+                </div>
+
+
+            </div>
+
+
+            <div class="form-group row">
+
+                <label class="col-sm-3 form-control-label">Postal Address<span class="requiredSymbol">*</span></label>
+                <div class="col-sm-5">
+                    <textarea [rows]="5" style="width:100%" placeholder="Address" class="form-control" autoResize="true"
+                        pInputTextarea formControlName="postalAddress" name="postalAddress"></textarea>
+                </div>
+
+
+            </div>
+
+
+            <div class="form-group row">
+
+                <label class="col-sm-3 form-control-label" style="font-size: 17px;"><strong>Counselors</strong></label>
+
+
+
+            </div>
+
+
+
+            <nb-card>
+                <nb-card-header>
+
+
+                    <div class="col-md-12  form-group">
+                        <div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label style="display:block"><strong>Counceler Name<span class="requiredSymbol">*</span></strong></label>
+
+                                </div>
+                                <div class="col-md-2">
+                                    <label style="display:block"><strong>User Id<span class="requiredSymbol">*</span></strong></label>
+
+                                </div>
+                                <div class="col-md-2">
+                                    <label style="display:block"><strong>Password<span class="requiredSymbol">*</span></strong></label>
+
+                                </div>
+                                <div class="col-md-2">
+                                    <label style="display:block"><strong>Center Head</strong></label>
+
+                                </div>
+                                <div class="col-md-2">
+                                    <label style="display:block"><strong>Active</strong></label>
+
+                                </div>
+                                <div class="col-md-1">
+
+                                    <button type="button" class="btn btn-hero-primary btn-demo" style=" float:right;"
+                                        (click)="addNewCouncelor()"><i class="fa fa-plus"></i></button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </nb-card-header>
+
+
+                <nb-card-body>
+
+
+                    <div class="row">
+
+                        <div class="col-md-12  form-group" style="max-height:600px">
+
+                            <div style="margin-top:7px;" formArrayName="councellors" *ngFor="let item of councellorFormArray.controls; let i = index;">
+
+
+
+                                <div [formGroupName]="i">
+                                    <div class="row">
+                                        <div class="col-md-3">
+
+                                            <input placeholder="Name" class="form-control" pInputText formControlName="userName">
+                                        </div>
+                                        <div class="col-md-2">
+
+                                            <input placeholder="User id" class="form-control" pInputText
+                                                formControlName="userId">
+
+
+                                        </div>
+                                        <div class="col-md-2">
+
+                                            <input placeholder="Password" class="form-control" pInputText
+                                                formControlName="password">
+                                        </div>
+                                        <div class="col-md-2">
+
+                                            <p-toggleButton class="form-control" formControlName="isCenterHead" name="isCenterHead"
+                                                onLabel="Yes" offLabel="No" onIcon="pi pi-check" offIcon="pi pi-times"
+                                                [style]="{'width':'80px'}"></p-toggleButton>
+                                        </div>
+
+                                        <div class="col-md-2">
+
+                                            <p-toggleButton class="form-control" formControlName="isActive" name="isActive"
+                                                onLabel="Yes" offLabel="No" onIcon="pi pi-check" offIcon="pi pi-times"
+                                                [style]="{'width':'80px'}"></p-toggleButton>
+                                        </div>
+
+
+                                        <div class="col-md-1">
+                                            <button *ngIf="couchingCenterForm.get('councellors').controls[i].get('userName').value =='' && 
+                                        couchingCenterForm.get('councellors').controls[i].get('userId').value =='' && 
+                                        couchingCenterForm.get('councellors').controls[i].get('password').value =='' &&
+                                        couchingCenterForm.get('councellors').controls[i].get('userSeq').value ==undefined"
+                                                type="button" class="btn btn-danger" style=" float:right;" (click)="removeSelectedCounselor(i)">
+                                                <i class="fa fa-minus"></i></button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+
+
+
+
+                    </div>
+
+
+                </nb-card-body>
+            </nb-card>
+
+
+        </form>
+    </nb-card-body>
+</nb-card>
+
+<nb-alert *ngIf="showSuccessResponseOnCourseUpdate" status="success" closable (close)="onHideNotification()">
+    Saved Successfully
+</nb-alert>
+
+
+<nb-alert *ngIf="showFailureResponseOnCourseUpdate" status="danger" closable (close)="onHideNotification()">
+    {{responseMessage}}
+</nb-alert>
+
+
+<nb-card *ngIf="isEditPage">
+    <nb-card-header>Courses
+        <button type="button" class="btn btn-hero-primary btn-demo" style=" float:right;" (click)="updateCenterCourses()">Add
+            Course</button>
+    </nb-card-header>
+
+
+    <nb-card-body>
+
+
+        <div class="row">
+            <div class="col-md-12  form-group">
+
+
+
+
+                <div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label style="display:block"><strong>Course Name</strong></label>
+
+                        </div>
+                        <div class="col-md-2">
+                            <label style="display:block"><strong>Fees<span class="requiredSymbol">*</span></strong></label>
+
+                        </div>
+
+                        <div class="col-md-2">
+                            <label style="display:block"><strong>E-Book Available</strong></label>
+
+                        </div>
+                        <div class="col-md-3">
+                            <label style="display:block"><strong>E-book File Name </strong></label>
+
+                        </div>
+                        <div class="col-md-2">
+                            <label style="display:block"><strong>Active</strong></label>
+
+                        </div>
+
+                        <div class="col-md-2">
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div style="margin-top:17px;" *ngFor="let course of courses">
+
+
+
+                    <div>
+                        <div class="row">
+                            <div class="col-md-2">
+
+                                <input style="cursor:not-allowed" readonly placeholder="Course Name" class="form-control"
+                                    pInputText [(ngModel)]="course.courseName">
+                            </div>
+                            <div class="col-md-2">
+                                <div class="ui-inputgroup">
+                                    <span class="ui-inputgroup-addon" style="width:40px;"> <i style="margin-top:15px"
+                                            class="fa fa-inr " aria-hidden="true"></i></span>
+                                    <input style="text-align:right" onlynumber="true" placeholder="Amount" class="form-control"
+                                        pInputText [(ngModel)]="course.fees">
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-2">
+                                <p-toggleButton class="form-control" name="isEbook" onLabel="Yes" offLabel="No" onIcon="pi pi-check"
+                                    offIcon="pi pi-times" [style]="{'width':'80px'}" [(ngModel)]="course.isEbookAvailable"></p-toggleButton>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <!-- <label for="file">Choose File</label>
+                                    <input type="file" id="file" (change)="handleFileInput($event.target.files)"> -->
+                                    <!-- <app-upload [(ngModel)] = "course.selectedFile"></app-upload> -->
+
+                                    <input placeholder="E-Book Name" class="form-control" pInputText [(ngModel)]="course.fileName">
+                                </div>
+
+                            </div>
+                            <div class="col-md-2">
+                                <p-toggleButton class="form-control" name="isActive" onLabel="Yes" offLabel="No" onIcon="pi pi-check"
+                                    offIcon="pi pi-times" [style]="{'width':'80px'}" [(ngModel)]="course.isActive"></p-toggleButton>
+                            </div>
+                            <div class="col-md-1">
+
+                                <button type="button" class="btn btn-hero-primary btn-demo" style=" float:right;"
+                                    (click)="updateCourse(course)"><i class="fa fa-save"></i></button>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+
+
+
+        </div>
+
+
+    </nb-card-body>
+</nb-card>

@@ -1,0 +1,59 @@
+<p-messages [(value)]="msgs"></p-messages>
+<nb-card _ngcontent-c50="" _nghost-c22="">
+   
+  <nb-card-header _ngcontent-c50="">
+      <div class="row">
+        <div class="col-md-2">  
+    Pending Certificates
+    </div>
+        <div class="col-md-4">
+    <p-dropdown [style]="{'width':'100%'}" (onChange)="getCenterBatches()" [options]="centers" [(ngModel)]="selectedCenter" placeholder="Select center" ></p-dropdown>
+     
+</div>
+<div class="col-md-4">
+        <p-dropdown [style]="{'width':'100%'}" (onChange)="getIndententedStudentCourses()" [options]="batches" [(ngModel)]="selectedBatch" placeholder="Select batch"></p-dropdown>
+         
+    </div>
+
+     </div>
+
+  </nb-card-header>
+  <nb-card-body _ngcontent-c50="">
+     
+      <p-table #tt [responsive]="true" [resizableColumns]="true" [columns]="cols"  [paginator]="true" [rows]="10" [value]="inventesCertificates">
+          <ng-template pTemplate="caption">
+              <div class="ui-helper-clearfix">
+                  <button type="button" pButton  icon="fa fa-file-o" iconPos="left" label="Export Excel" (click)="tt.exportCSV(); updateAsPrinted()" style="float:right;"></button>
+                  <!-- <button type="button" pButton icon="fa-file" iconPos="left" label="Selection Only" (click)="tt.exportCSV({selectionOnly:true})" style="float:right"></button>  -->
+              </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+              <tr>
+                  <th style="width: 12.25em" class="table-column-align-center">
+                      Student</th>
+                  <th style="width: 12.25em" class="table-column-align-center">Course</th>
+                  <th class="table-column-align-center">Grade</th>
+
+                  <th style="width: 22.25em" class="table-column-align-center">Certificate No</th>
+                  <th style="width: 22.25em" class="table-column-align-center">Printed</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-certificate>
+              <tr [pSelectableRow]="rowData">
+                  <td class="table-column-align-center">{{certificate.studentName}}</td>
+                  <td class="table-column-align-center">{{certificate.courseName}}</td>
+                  <td class="table-column-align-center">{{certificate.gradeObtained}}</td>
+                  <td class="table-column-align-center">{{certificate.certificateNumber}}</td>
+                  <td class="table-column-align-center">
+
+                    {{ certificate.isCertificatePreinted === true ? 'Yes' :'No' }}
+                    </td>
+
+
+              </tr>
+          </ng-template>
+      </p-table>
+
+
+  </nb-card-body>
+</nb-card>

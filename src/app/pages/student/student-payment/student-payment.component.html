@@ -1,0 +1,86 @@
+<div class="row">
+  <div class="col-md-12">
+    <nb-card>
+        
+        <nb-alert *ngIf="showAmountValidation" status="danger" closable (close)="onHideNotification()">
+           Paying amount should be less then due amount
+          </nb-alert>
+      <nb-alert *ngIf="showFillMandetoryValidation" status="danger" closable (close)="onHideNotification()">
+        Fill All the required Fields
+      </nb-alert>
+      <nb-card-header>Fee Payment
+      </nb-card-header>
+      <nb-card-body>
+        <div class="row">
+          <div class="col-md-12">
+            <form class="form-horizontal" [formGroup]="feePaymentForm">
+              <div class="form-group row">
+                <label for="inputName" class="col-sm-3 col-form-label">Name <span style="color: red;">*</span></label>
+                <div class="col-sm-5">
+                  <!-- <input type="text" formControlName="studentName" class="form-control" id="inputName" placeholder="Name"> -->
+                  <p-autoComplete [style]="{'width':'100%'}" (onSelect)="selectStudent($event)" formControlName="studentNameTmp"
+                    [suggestions]="names" (completeMethod)="filterName($event)" field="studentName" [size]="30"
+                    placeholder="Name" [minLength]="1"></p-autoComplete>
+                </div>
+                <div class="col-sm-4" *ngIf="false">
+                  <button  type="button" (click)="viewHistory();" class="btn btn-primary float-right">Payment History</button>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputTotalFee" class="col-sm-3 col-form-label">Total Fee <span style="color: red;">*</span></label>
+                <div class="col-sm-3">
+                  <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon" style="width:40px;"> <i style="margin-top:15px" class="fa fa-inr "
+                        aria-hidden="true"></i></span>
+                    <input style="text-align: right" disabled='true' pInputText formControlName="totalFee" type="text" class="form-control" id="inputTotalFee"
+                      placeholder="Total Fee">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputAddons" class="col-sm-3 col-form-label">Due <span style="color: red;">*</span></label>
+                <div class="col-sm-3">
+                  <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon" style="width:40px;"> <i style="margin-top:15px" class="fa fa-inr "
+                        aria-hidden="true"></i></span>
+                    <input style="text-align: right" disabled='true' formControlName="dueAmount" class="form-control" id="inputAddons"
+                      placeholder="Due" type="text" />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputFeePaid" class="col-sm-3 col-form-label">Paying Amount <span style="color: red;">*</span></label>
+                <div class="col-sm-3">
+                  <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon" style="width:40px;"> <i style="margin-top:15px" class="fa fa-inr "
+                        aria-hidden="true"></i></span>
+                    <input style="text-align: right" onlynumber="true" formControlName="paidAmount" type="text" class="form-control" id="inputFeePaid"
+                      placeholder="Paying Amount">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="offset-sm-3 col-sm-5" style="text-align:center">
+                  <button type="submit" (click)="payFee();" class="btn btn-primary">Pay</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<p-sidebar [(visible)]="showPaid" position="bottom" [baseZIndex]="10000">
+  <h1 style="font-weight:normal">Student ID is {{studentCode}}</h1>
+  <button pButton type="button" (click)="proceedPayment()" label="Okay" class="ui-button-success"></button>
+</p-sidebar>
+
+<p-sidebar [(visible)]="showPrint" position="bottom" [baseZIndex]="10000">
+  <h1 style="font-weight:normal">Payment Details saved!</h1>
+  <button pButton type="button" (click)="printInvoice()" label="Print" class="ui-button-success"></button>
+</p-sidebar>
+
+
+<app-student-payment-history [studentId]="_studentId"></app-student-payment-history>

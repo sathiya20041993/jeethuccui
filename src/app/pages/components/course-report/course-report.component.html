@@ -1,0 +1,113 @@
+<nb-card>
+
+  <nb-alert *ngIf="showFailureResponseNotification" status="danger" closable (close)="onHideNotification()">
+    {{responseMessage}}
+  </nb-alert>
+
+  <nb-alert *ngIf="showSuccessResponseNotification" status="success" closable (close)="onHideNotification()">
+    Saved Successfully
+  </nb-alert>
+
+  <nb-alert *ngIf="showFillMandetoryValidation" status="danger" closable (close)="onHideNotification()">
+    Fill All the required Fields
+  </nb-alert>
+
+  <nb-card-header>Course Report
+    <!-- <button type="button" style="float:right" class="btn btn-hero-primary btn-demo" (click)="saveCourses()">Save</button> -->
+
+  </nb-card-header>
+  <nb-card-body>
+    <form class="form-horizontal" >
+
+
+
+
+
+
+      <div class="form-group row"  *ngIf="isAdminUser">
+        <label class="col-sm-2 form-control-label"><strong>Center</strong> </label>
+        <div class="col-sm-4">
+          <!-- <p-autoComplete [style]="{'width':'100%'}"   [(ngModel)]="country" [suggestions]="filteredCountriesSingle" (completeMethod)="filterCountrySingle($event)" field="name" [size]="30"
+              placeholder="Center" [minLength]="1"></p-autoComplete> -->
+
+          <p-dropdown (onChange)="fetchReport()" name="selectedCenter" [(ngModel)]="selectedCenter" placeholder="select" [style]="{'width':'100%','line-height': '30px'}"
+            [options]="centerList" dataKey="centerSeq" optionLabel="centerId"></p-dropdown>
+        </div>
+      </div>
+
+
+      <div *ngIf="isAdminUser" style="height:110px;"></div>
+
+
+
+
+
+
+
+
+      <nb-card>
+        <nb-card-header>Courses
+         
+        </nb-card-header>
+
+        <nb-card-body>
+
+
+          <div class="row">
+            <div class="col-md-12  form-group">
+
+
+              <p-table [style]="{'margin-bottom':'150px'}" #tt [responsive]="true" [resizableColumns]="true" [columns]="cols" selectionMode="multiple" [(selection)]="selectedCenters" [paginator]="true" [rows]="10" [pageLinks]="3" [rowsPerPageOptions]="[10,50,100]" [value]="coursesReport">
+                <ng-template pTemplate="caption">
+                    <div class="ui-helper-clearfix">
+                        <button type="button" pButton  icon="fa fa-file-o" iconPos="left" label="CSV" (click)="tt.exportCSV()" style="float:right;"></button>
+                        <!-- <button type="button" pButton icon="fa-file" iconPos="left" label="Selection Only" (click)="tt.exportCSV({selectionOnly:true})" style="float:right"></button>  -->
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <!-- <th  class="table-column-align-center">
+                            Course Id</th> -->
+                        <th  class="table-column-align-center">Course Name</th>
+                        <th class="table-column-align-center">Fees (<i  class="fa fa-inr" aria-hidden="true"></i>)</th>
+      
+                        <th  class="table-column-align-center">Active</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-course>
+                    <tr [pSelectableRow]="rowData">
+                        <!-- <td class="table-column-align-center">{{course.courseSeq}}</td> -->
+                        <td class="table-column-align-center">{{course.courseName}}</td>
+                        <td class="table-column-align-center">{{course.fees | currency:"₹"}}</td>
+                        <td class="table-column-align-center">
+
+                          {{ course.isActive === true ? 'Yes' :'No' }}
+                        </td>
+      
+      
+                    </tr>
+                </ng-template>
+            </p-table>
+
+
+            <div *ngIf="coursesReport.length==0">
+              No values to display here
+          </div>
+
+
+
+            </div>
+
+
+
+
+          </div>
+
+
+        </nb-card-body>
+      </nb-card>
+
+
+    </form>
+  </nb-card-body>
+</nb-card>

@@ -1,0 +1,170 @@
+<nb-card>
+
+    <nb-alert *ngIf="showFailureResponseNotification" status="danger" closable (close)="onHideNotification()">
+        {{responseMessage}}
+    </nb-alert>
+
+    <nb-alert *ngIf="showSuccessResponseNotification" status="success" closable (close)="onHideNotification()">
+        Saved Successfully
+    </nb-alert>
+
+    <nb-alert *ngIf="showFillMandetoryValidation" status="danger" closable (close)="onHideNotification()">
+        Fill All the required Fields
+    </nb-alert>
+
+    <nb-card-header>Course Creation
+        <button type="button" style="float:right" class="btn btn-hero-primary btn-demo" (click)="saveCourses()">Save</button>
+
+    </nb-card-header>
+    <nb-card-body>
+        <form class="form-horizontal" [formGroup]="courseCreationForm">
+
+
+
+
+
+
+            <div class="form-group row">
+                <label class="col-sm-2 form-control-label"><strong>Center</strong> </label>
+                <div class="col-sm-4">
+                    <!-- <p-autoComplete [style]="{'width':'100%'}"   [(ngModel)]="country" [suggestions]="filteredCountriesSingle" (completeMethod)="filterCountrySingle($event)" field="name" [size]="30"
+                placeholder="Center" [minLength]="1"></p-autoComplete> -->
+
+                    <p-dropdown formControlName="centerDto" placeholder="select" [style]="{'width':'100%','line-height': '30px'}"
+                        [options]="centerList" dataKey="centerSeq" optionLabel="centerId" (onChange)="getCoursesForCenter()"></p-dropdown>
+                </div>
+            </div>
+
+
+            <div style="height:110px;"></div>
+
+
+
+
+
+
+
+
+            <nb-card>
+                <nb-card-header>Courses
+                    <button type="button" class="btn btn-hero-primary btn-demo" style=" float:right;" (click)="addnewCourseInArray()"><i
+                            class="fa fa-plus"></i></button>
+                </nb-card-header>
+
+
+                <nb-card-body>
+
+
+                    <div class="row">
+                        <div class="col-md-12  form-group">
+
+
+
+
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label style="display:block"><strong>Course Name</strong><span class="requiredSymbol">*</span></label>
+
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label style="display:block"><strong>Certificate Series</strong><span class="requiredSymbol">*</span></label>
+
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label style="display:block"><strong>Fees</strong><span class="requiredSymbol">*</span></label>
+
+                                    </div>
+                                   <div class="col-md-2">
+                                        <label style="display:block"><strong>E-Book</strong></label>
+
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label style="display:block"><strong>E-book File Name</strong></label>
+
+                                    </div> 
+                                    <!-- <div class="col-md-2">
+                                        <label style="display:block"><strong>Active</strong></label>
+
+                                    </div> -->
+                                    <div class="col-md-2">
+
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <div style="margin-top:17px;" formArrayName="courses" *ngFor="let item of coursesFormArray.controls; let i = index;">
+
+
+
+                                <div [formGroupName]="i">
+                                    <div class="row">
+                                        <div class="col-md-3">
+
+                                            <input placeholder="Course Name" class="form-control" pInputText
+                                                formControlName="courseName">
+                                        </div>
+
+                                        <div class="col-md-2">
+
+                                            <input placeholder="Certificate Series" class="form-control" pInputText
+                                                formControlName="certificateSeriesPrefix">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="ui-inputgroup">
+                                                <span class="ui-inputgroup-addon" style="width:40px;"> <i style="margin-top:15px"
+                                                        class="fa fa-inr " aria-hidden="true"></i></span>
+                                                <input style="text-align:right" onlynumber="true" placeholder="Amount"
+                                                    class="form-control" pInputText formControlName="fees"  >
+                                            </div>
+
+                                        </div>
+                                         <div class="col-md-2">
+                                             <p-toggleButton  class="form-control" name="isEbook" onLabel="Yes" offLabel="No" onIcon="pi pi-check"
+                                                offIcon="pi pi-times" [style]="{'width':'80px'}" formControlName="isEbookAvailable"></p-toggleButton> 
+                                        </div>
+                                      <div class="col-md-2">
+                                               <input placeholder="E-Book Name" class="form-control" pInputText formControlName="fileName">
+
+                                        </div> 
+                                        <!-- <div class="col-md-2">
+                                            <p-toggleButton class="form-control" name="isEbook" onLabel="Yes" offLabel="No"
+                                                onIcon="pi pi-check" offIcon="pi pi-times" [style]="{'width':'80px'}"
+                                                formControlName="isActive"></p-toggleButton>
+                                        </div> -->
+                                        <div class="col-md-1">
+
+                                            <button *ngIf="courseCreationForm.get('courses').controls[i].get('courseName').value =='' &&
+                                                courseCreationForm.get('courses').controls[i].get('courseSeq').value ==undefined && 
+                                                courseCreationForm.get('courses').controls[i].get('fees').value ==''"
+                                                type="button" class="btn btn-danger" style=" float:right;" (click)="removeSelectedCourse(i)">
+                                                <i class="fa fa-minus"></i></button>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+
+
+
+
+                    </div>
+
+
+                </nb-card-body>
+            </nb-card>
+
+
+        </form>
+    </nb-card-body>
+</nb-card>
