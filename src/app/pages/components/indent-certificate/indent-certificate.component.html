@@ -72,7 +72,7 @@
                     <label style="display:block"><strong>Student Name</strong><span class="requiredSymbol">*</span></label>
 
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-4">
                     <label style="display:block"><strong>Course</strong><span class="requiredSymbol">*</span></label>
 
                   </div>
@@ -103,7 +103,7 @@
                         placeholder="Name" [minLength]="1"></p-autoComplete>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                       <p-dropdown [style]="{'width':'100%'}" placeholder="select" [options]="this.studentIndentsArray.at(i).get('relatedCourse').value"
                          formControlName="courseSeq" (onChange)="getCertificateInfo(i)"></p-dropdown>
                      

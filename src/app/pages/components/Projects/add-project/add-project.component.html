@@ -1,24 +1,20 @@
 <nb-card>
 
-    <nb-alert *ngIf="showFailureResponseNotification" status="danger" closable (close)="onHideNotification()">
+    <nb-alert *ngIf="showresponseResponseNotification" status="success" closable (close)="showresponseResponseNotification = false">
         {{responseMessage}}
     </nb-alert>
 
-    <nb-alert *ngIf="showCenterDuplicateError" status="danger" closable>
-        {{responseMessage}}
-    </nb-alert>
-
-    <nb-alert *ngIf="showSuccessResponseNotification" status="success" closable (close)="onHideNotification()">
-        Saved Successfully
-    </nb-alert>
+   
 
     <nb-alert *ngIf="showFillMandetoryValidation" status="danger" closable (close)="onHideNotification()">
         Fill All the required Fields
     </nb-alert>
 
 
-    <nb-card-header>Add Project
-        <button type="button" style="float:right" class="btn btn-hero-primary btn-demo" (click)="saveCouchingCenter()">Save</button>
+    <nb-card-header>{{title}} Project
+            <button  type="button" style="float:right;margin-left:20px;" class="btn btn-hero-primary btn-demo" (click)="saveProject()">Save</button>
+            <button *ngIf="isEditPage" type="button" style="float:right" class="btn btn-hero-primary btn-demo" (click)="addPayment()">Add Payment</button>
+     
 
     </nb-card-header>
     <nb-card-body>
@@ -43,7 +39,7 @@
                 <label class="col-sm-2 form-control-label">Description<span class="requiredSymbol">*</span></label>
                 <div class="col-sm-6">
                     <input  required placeholder="Description" class="form-control" type="text"
-                        formControlName="projectName" pInputText name="Description" />
+                        formControlName="description" pInputText name="Description" />
                 </div>
 
 
@@ -66,7 +62,7 @@
 
                 <label class="col-sm-2 form-control-label">Total Amount<span class="requiredSymbol">*</span></label>
                 <div class="col-sm-3">
-                    <input   required placeholder="Total Amount" class="form-control" type="text"
+                    <input  onlynumber='true'  required placeholder="Total Amount" class="form-control" type="text"
                         formControlName="projectAmount" pInputText name="projectAmount" />
                 </div>
 
@@ -76,12 +72,12 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Start Date </label>
                 <div class="col-sm-3">
-                  <p-calendar  dateFormat="dd/mm/yy" formControlName="fromDate" [showIcon]="true"></p-calendar>
+                  <p-calendar  dateFormat="dd/mm/yy" formControlName="startDate" [showIcon]="true"></p-calendar>
                 </div>
 
                 <label class="col-sm-2 col-form-label">Duration In Month</label>
                 <div class="col-sm-3">
-                    <input  required placeholder="No of Month(s)" class="form-control" type="text"
+                    <input onlynumber='true' placeholder="No of Month(s)" class="form-control" type="text"
                     formControlName="projectDurationInMonths" pInputText name="Description" />
                 </div>
               </div>
@@ -96,13 +92,6 @@
     </nb-card-body>
 </nb-card>
 
-<nb-alert *ngIf="showSuccessResponseOnCourseUpdate" status="success" closable (close)="onHideNotification()">
-    Saved Successfully
-</nb-alert>
 
-
-<nb-alert *ngIf="showFailureResponseOnCourseUpdate" status="danger" closable (close)="onHideNotification()">
-    {{responseMessage}}
-</nb-alert>
 
 

@@ -1,3 +1,4 @@
+import { ProjectPaymentComponent } from './components/Projects/project-payment/project-payment.component';
 import { AddProjectComponent } from './components/Projects/add-project/add-project.component';
 import { ViewProjectsComponent } from './components/Projects/view-projects/view-projects.component';
 import { CreateCounselorComponent } from './components/admin-pages/create-counselor/create-counselor.component';
@@ -57,7 +58,8 @@ const PAGES_COMPONENTS = [
   DueReportComponent,
   StudentReportComponent,
   ViewProjectsComponent,
-  AddProjectComponent
+  AddProjectComponent,
+  ProjectPaymentComponent
 
 ];
 

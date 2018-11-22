@@ -29,11 +29,11 @@ export class ProjectService {
     return this.http.get(environment.url + "project/list");
   }
 
-  saveCouchingCenter(centerData) {
+  saveProject(project) {
 
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(environment.url + "couching-center/save", centerData, options);
+    return this.http.post(environment.url + "project/save", project, options);
   }
 
 
@@ -43,7 +43,18 @@ export class ProjectService {
     this.createAuthHeader(headers);
     return this.http.get(environment.url + "couching-center/get/" + centerId , {headers: headers});
   }
+  getProjectInfo(request){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(environment.url + "project/getInfo", request, options);
+  }
+
+  receivePayment(request){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(environment.url + "project/payment", request, options);
+  }
+  }
 
 
 
-}

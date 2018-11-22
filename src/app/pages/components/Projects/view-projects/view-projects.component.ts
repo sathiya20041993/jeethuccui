@@ -53,9 +53,15 @@ export class ViewProjectsComponent implements OnInit {
   }
 
 
-  update(center) {
+  update(projectId) {
 
     
-this.router.navigateByUrl('pages/center/edit/'+center.centerId);
+this.router.navigateByUrl('pages/project/edit/'+projectId);
   }
+
+  payment(projectId) {
+
+    
+    this.router.navigateByUrl('pages/project/payment/'+projectId);
+      }
 }
